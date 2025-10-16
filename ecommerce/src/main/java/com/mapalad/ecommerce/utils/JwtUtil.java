@@ -19,7 +19,7 @@ import java.util.function.Function;
 
 public class JwtUtil {
 
-    public static final String SECRET = "413F4428472B4B6250655368566D5970337336763979244226452948404D6351";
+    public static final String SECRET = "Pm0a08kyzCMWE0IB2MTCbH/8Bk6H+4QWL332h6wKWzzNUmhOMihCNxnH2PU6aw81DnQPE2iFCFhnmbM2ocZiug==";
 
     public String generateToken(String userName) {
         Map<String, Object> claims = new HashMap<>();
@@ -50,7 +50,11 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder()
+                .setSigningKey(getSignKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     private Boolean isTokenExpired(String token) {

@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.util.Optional;
 
 @RestController
-@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -35,7 +34,7 @@ public class AuthController {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
 
-    public static final String TOKEN_PREFIX = "Bearer";
+    public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
 
     public final AuthService authService;
@@ -62,6 +61,9 @@ public class AuthController {
                     .toString()
             );
 
+            response.addHeader("Access-Control-Expose-Headers", "Authorization");
+            response.addHeader("Access-Control-Allow-Headers", "Authorization, X-PINGOTHER, Origin, " +
+                    "X-Request-With, Content-Type, Accept, X-Custom-Header");
             response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
         }
     }
