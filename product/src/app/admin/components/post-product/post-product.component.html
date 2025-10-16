@@ -9,10 +9,10 @@
                 <input type="file" id="fileInput" (change)="onFileSelected($event)" hidden>
                 <mat-icon>attach_file</mat-icon>
             </label>
-
+            <br>
             <div *ngIf="selectedFile" class="image-preview">
                 <div class="circle-image">
-                    <img [src]="imagePreview" alt="Select Image" class="preview-image">
+                    <img [src]="imagePreview" alt="Select Image" class="image-preview">
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
             <mat-error *ngIf="productForm.get('description')?.hasError('required')">This Input Is Required!</mat-error>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit">Add Product</button>
+        <button mat-raised-button style="background-color:#84592B; color: #E8D1A7" type="submit">Add Product</button>
 
     </form>
 </div>

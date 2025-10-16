@@ -25,6 +25,11 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .login {
+        background-color: #84592B;
+        color: #E8D1A7;
+    }
 }
 
 mat-form-field {

@@ -7,8 +7,8 @@
     h2 {
         text-align: center;
         margin-bottom: 20px;
-        color: #3f51b5;
-        /* Update with your desired color code */
+        color: #442D1C;
+        font-weight: bold;
     }
 
     form {
@@ -27,9 +27,9 @@
                 align-items: center;
                 justify-content: center;
                 padding: 12px 24px;
-                background-color: #3f51b5; // Update with your desired color code
-
+                background-color: #9D9167;
                 color: white;
+
                 cursor: pointer;
                 border-radius: 4px;
                 transition: background-color 0.3s;
@@ -45,15 +45,12 @@
             }
         }
 
-
         mat-form-field {
             margin-bottom: 20px;
 
             .mat-form-field-wrapper {
                 border-radius: 4px;
                 border: 1px solid #ccc;
-
-                // Update with your desired color code
             }
 
             .mat-form-field-outline {
@@ -61,14 +58,14 @@
             }
 
             .mat-input-element {
-                color: #3f51b5;
-                /* Update with your desired color code */
+                color: #84592B;
             }
         }
 
         button {
             align-self: center;
         }
+        
     }
 }
 
