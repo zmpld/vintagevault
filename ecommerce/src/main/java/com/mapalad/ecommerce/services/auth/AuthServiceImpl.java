@@ -3,8 +3,11 @@ package com.mapalad.ecommerce.services.auth;
 
 import com.mapalad.ecommerce.dto.SignupRequest;
 import com.mapalad.ecommerce.dto.UserDto;
+import com.mapalad.ecommerce.entity.Order;
 import com.mapalad.ecommerce.entity.User;
+import com.mapalad.ecommerce.enums.OrderStatus;
 import com.mapalad.ecommerce.enums.UserRole;
+import com.mapalad.ecommerce.repository.OrderRepository;
 import com.mapalad.ecommerce.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,9 @@ public class AuthServiceImpl implements AuthService{
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     public UserDto createUser(SignupRequest signupRequest){
         User user = new User();
 
@@ -27,10 +33,18 @@ public class AuthServiceImpl implements AuthService{
         user.setName(signupRequest.getName());
         user.setPassword(new BCryptPasswordEncoder().encode(signupRequest.getPassword()));
         user.setRole(UserRole.CUSTOMER);
-        User createUser = userRepository.save(user);
+        User createdUser = userRepository.save(user);
+
+        Order order = new Order();
+        order.setAmount(0L);
+        order.setTotalAmount(0L);
+        order.setDiscount(0L);
+        order.setUser(createdUser);
+        order.setOrderStatus(OrderStatus.Pending);
+        orderRepository.save(order);
 
         UserDto userDto = new UserDto();
-        userDto.setId(createUser.getId());
+        userDto.setId(createdUser.getId());
 
         return userDto;
     }
