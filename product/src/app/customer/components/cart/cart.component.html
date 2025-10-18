@@ -1,4 +1,4 @@
-<div *ngIf="cartItems.length > 0; else emptyCart">
+<div *ngIf="cartItems.length > 0; else emptyCart"><br>
     <div class="cart-container">
         <div class="cart-item" *ngFor="let item of cartItems">
             <div class="product-info">
@@ -7,16 +7,16 @@
                 </div>
                 <div class="product-details">
                     <div class="item-row">
-                        <div class="item-name" [ngClass]="{ 'highlight': item.highlight }">
+                        <div class="item-name" [ngClass]="{ 'highlight': item.highlighted }">
                             {{ item.productName }}
                         </div>
                         <div class="item-price">{{ item.price | currency:'PHP':'symbol':'1.2-2' }}</div>
                         <div class="quantity-controls">
-                            <button mat-icon-button [disabled]="item.quantity == 1">
+                            <button mat-icon-button [disabled]="item.quantity == 1" (click)="decreaseQuantity(item.productId)">
                                 <mat-icon>remove_circle_outline</mat-icon>
                             </button>
                             <span class="quantity">{{ item.quantity }}</span>
-                            <button mat-icon-button >
+                            <button mat-icon-button (click)="increaseQuantity(item.productId)">
                                 <mat-icon>add_circle_outline</mat-icon>
                             </button>
                         </div>
@@ -29,11 +29,27 @@
             Total Amount: {{ order.totalAmount | currency:'PHP':'symbol':'1.2-2' }}
         </div>
         <div class="total-price">
-            Amount: {{ order.Amount | currency:'PHP':'symbol':'1.2-2' }}
+            Amount: {{ order.amount | currency:'PHP':'symbol':'1.2-2' }}
+        </div>
+        <div class="total-price" *ngIf="order.couponName != null">
+            Coupon Applied: {{ order.couponName }}
         </div>
         <div>
-            <button mat-raised-button class="placeorder">Place Order</button>
+            <button mat-raised-button class="placeorder" (click)="placeOrder()">Place Order</button>
         </div>
+    </div>
+
+    <div class="container" *ngIf="order.couponName == null">
+        <form [formGroup]="couponForm" (ngSubmit)="applyCoupon()">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Code</mat-label>
+                <input matInput type="text" placeholder="Code" formControlName="code" />
+                <mat-error *ngIf="couponForm.get('code')?.hasError('required')">This input is required!</mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button class="placeorder" type="submit">Apply Coupon</button>
+        </form>
+
     </div>
 </div>
 

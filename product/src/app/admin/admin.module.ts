@@ -9,6 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { DemoAngularMaterialModule } from '../DemoAngularMaterialModule';
 import { PostCategoryComponent } from './components/post-category/post-category.component';
 import { PostProductComponent } from './components/post-product/post-product.component';
+import { PostCouponComponent } from './components/post-coupon/post-coupon.component';
+import { CouponsComponent } from './components/coupons/coupons.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 
 @NgModule({
@@ -16,7 +19,10 @@ import { PostProductComponent } from './components/post-product/post-product.com
     AdminComponent,
     DashboardComponent,
     PostCategoryComponent,
-    PostProductComponent
+    PostProductComponent,
+    PostCouponComponent,
+    CouponsComponent,
+    OrdersComponent
     
   ],
   imports: [
