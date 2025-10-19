@@ -10,7 +10,7 @@
 
         <ng-container matColumnDef="amount">
             <mat-header-cell *matHeaderCellDef style="font-weight: bolder; color: #743014">Amount</mat-header-cell>
-            <mat-cell *matCellDef="let myOrder" style="font-weight: 600;">{{ myOrder.amount }}</mat-cell>
+            <mat-cell *matCellDef="let myOrder" style="font-weight: 600;">{{ myOrder.amount  | currency:'PHP':'symbol':'1.2-2' }}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="description">
@@ -37,7 +37,11 @@
         <ng-container matColumnDef="action">
             <mat-header-cell *matHeaderCellDef style="font-weight: bolder; color: #743014">Action</mat-header-cell>
             <mat-cell *matCellDef="let myOrder">
+                <span *ngIf="myOrder.orderStatus == 'Delivered'">
+                    <button mat-raised-button color="primary" type="submit"
+                        routerLink="/customer/ordered_products/{{myOrder.id}}">Review</button>
 
+                </span>
 
             </mat-cell>
         </ng-container>
