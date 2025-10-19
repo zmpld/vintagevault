@@ -36,20 +36,20 @@
 
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef>Status</th>
-                    <td mat-cell *matCellDef="let order">{{ order.status }}</td>
+                    <td mat-cell *matCellDef="let order">{{ order.orderStatus }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef>Action</th>
                     <td mat-cell *matCellDef="let order">
-                        <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">Action</button>
+                        <button mat-raised-button class="action" [matMenuTriggerFor]="menu">Action</button>
                         <mat-menu #menu="matMenu">
                             <span>
                                 <span>
-                                    <button mat-menu-item>Shipped</button>
+                                    <button mat-menu-item (click)="changeOrderStatus(order.id, 'Shipped')">Shipped</button>
                                 </span>
                                 <span>
-                                    <button mat-menu-item>Delivered</button>
+                                    <button mat-menu-item (click)="changeOrderStatus(order.id, 'Delivered')">Delivered</button>
                                 </span>
                             </span>
                         </mat-menu>
@@ -57,11 +57,11 @@
                 </ng-container>
 
                 <tr mat-header-row
-                *matHeaderRowDef="['trackingId', 'userName', 'amount', 'description', 'address', 'address', 'date', 'status', 'action']">
+                *matHeaderRowDef="['trackingId', 'userName', 'amount', 'description', 'address', 'date', 'status', 'action']">
                 </tr>
 
                 <tr mat-row
-                    *matRowDef="let row; columns: ['trackingId', 'userName', 'amount', 'description', 'address', 'address', 'date', 'status', 'action']">
+                    *matRowDef="let row; columns: ['trackingId', 'userName', 'amount', 'description', 'address', 'date', 'status', 'action']">
                 </tr>
 
             </table>

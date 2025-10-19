@@ -1,7 +1,9 @@
 package com.mapalad.ecommerce.controller.admin;
 
+import com.mapalad.ecommerce.dto.FAQDto;
 import com.mapalad.ecommerce.dto.ProductDto;
 import com.mapalad.ecommerce.services.admin.adminproduct.AdminProductService;
+import com.mapalad.ecommerce.services.admin.faq.FAQService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import java.util.List;
 public class AdminProductController {
 
     private final AdminProductService adminProductService;
+
+    private final FAQService faqService;
 
     @PostMapping("/product")
     public ResponseEntity<ProductDto> addProduct(@ModelAttribute ProductDto productDto) throws IOException {
@@ -43,7 +47,13 @@ public class AdminProductController {
         return ResponseEntity.notFound().build();
     }
 
-    public AdminProductController(AdminProductService adminProductService) {
+    @PostMapping("/faq/{productId}")
+    public ResponseEntity<FAQDto> postFAQ(@PathVariable Long productId, @RequestBody FAQDto faqDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(faqService.postFAQ(productId, faqDto));
+    }
+
+    public AdminProductController(AdminProductService adminProductService, FAQService faqService) {
         this.adminProductService = adminProductService;
+        this.faqService = faqService;
     }
 }
