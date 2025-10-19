@@ -8,7 +8,7 @@ public class CartItemsDto {
     private Long id;
     private Long price;
     private Long quantity;
-    private Long ProductId;
+    private Long productId;
     private Long orderId;
     private String productName;
     private byte[] returnedImg;
@@ -40,11 +40,11 @@ public class CartItemsDto {
     }
 
     public Long getProductId() {
-        return ProductId;
+        return productId;
     }
 
     public void setProductId(Long productId) {
-        ProductId = productId;
+        this.productId = productId;
     }
 
     public Long getOrderId() {

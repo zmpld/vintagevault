@@ -47,7 +47,7 @@ public class CartServiceImpl implements CartService{
             Optional<User> optionalUser = userRepository.findById(addProductInCartDto.getUserId());
 
             if(optionalProduct.isPresent() && optionalUser.isPresent()){
-                CartItems cart =new CartItems();
+                CartItems cart = new CartItems();
                 cart.setProduct(optionalProduct.get());
                 cart.setPrice(optionalProduct.get().getPrice());
                 cart.setQuantity(1L);
@@ -176,8 +176,8 @@ public class CartServiceImpl implements CartService{
     }
 
     public OrderDto placeOrder(PlaceOrderDto placeOrderDto){
-        Order activeOrder = orderRepository.findByUserIdAndOrderStatus(placeOrderDto.getUserID(), OrderStatus.Pending);
-        Optional<User> optionalUser = userRepository.findById(placeOrderDto.getUserID());
+        Order activeOrder = orderRepository.findByUserIdAndOrderStatus(placeOrderDto.getUserId(), OrderStatus.Pending);
+        Optional<User> optionalUser = userRepository.findById(placeOrderDto.getUserId());
         if(optionalUser.isPresent()){
             activeOrder.setOrderDescription(placeOrderDto.getOrderDescription());
             activeOrder.setAddress(placeOrderDto.getAddress());
