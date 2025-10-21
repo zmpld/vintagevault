@@ -1,5 +1,6 @@
 package com.mapalad.ecommerce.controller.customer;
 
+import com.mapalad.ecommerce.dto.ProductDetailDto;
 import com.mapalad.ecommerce.dto.ProductDto;
 import com.mapalad.ecommerce.services.customer.CustomerProductService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,13 @@ public class CustomerProductController {
     public ResponseEntity<List<ProductDto>> getAllProductsByName(@PathVariable String name){
         List<ProductDto> productDtos = customerProductService.searchProductByTitle(name);
         return ResponseEntity.ok(productDtos);
+    }
+
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<ProductDetailDto> getProductDetailById(@PathVariable Long productId){
+        ProductDetailDto productDetailDto = customerProductService.getProductDetailById(productId);
+        if(productDetailDto == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(productDetailDto);
     }
 
     public CustomerProductController(CustomerProductService customerProductService) {
