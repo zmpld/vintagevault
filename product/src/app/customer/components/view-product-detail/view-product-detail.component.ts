@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
+import { UserStorageService } from 'src/app/services/storage/user-storage.service';
 
 @Component({
   selector: 'app-view-product-detail',
@@ -37,5 +38,24 @@ export class ViewProductDetailComponent {
         this.reviews.push(element);
       });
   })
+  }
+
+  addToWishlist(){
+    const wishlistDto = {
+      productId : this.productId,
+      userId: UserStorageService.getUserId()
+    }
+
+    this.customerService.addProductToWishlist(wishlistDto).subscribe(res =>{
+      if(res.id != null){
+        this.snackBar.open('Product added to wishlist successfully!', 'Close', {
+          duration: 5000
+        });
+      }else{
+        this.snackBar.open("Already in wishlist!", 'ERROR', {
+          duration: 5000
+        });
+      }
+    })
   }
 }

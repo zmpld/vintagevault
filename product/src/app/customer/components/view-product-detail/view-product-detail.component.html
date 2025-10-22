@@ -7,7 +7,10 @@
             <h2>{{ product.name }}</h2>
             <p class="description">{{ product.description }}</p>
             <p class="price">Price: {{ product.price | currency:'PHP':'symbol':'1.2-2' }}</p>
-            <p class="category">Category: {{ product.categoryName }}</p>
+            <p class="category">Category: {{ product.categoryName }}
+                <mat-icon class="heart-icon" (click)="addToWishlist()"
+                    style="cursor: pointer; margin-top: 50px;">favorite_border</mat-icon>
+            </p>
         </div>
     </div>
 
