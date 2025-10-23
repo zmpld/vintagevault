@@ -1,5 +1,6 @@
 package com.mapalad.ecommerce.controller.admin;
 
+import com.mapalad.ecommerce.dto.AnalyticsResponse;
 import com.mapalad.ecommerce.dto.OrderDto;
 import com.mapalad.ecommerce.services.admin.adminOrder.AdminOrderService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,10 @@ public class AdminOrderController {
         return ResponseEntity.status(HttpStatus.OK).body(orderDto);
     }
 
+    @GetMapping("/order/analytics")
+    public ResponseEntity<AnalyticsResponse> getAnalytics(){
+        return ResponseEntity.ok(adminOrderService.calculateAnalytics());
+    }
 
     public AdminOrderController(AdminOrderService adminOrderService) {
         this.adminOrderService = adminOrderService;
