@@ -5,7 +5,7 @@ import lombok.Data;
 
 
 @Data
-
+@AllArgsConstructor
 public class AnalyticsResponse {
 
     private Long placed;
@@ -16,8 +16,6 @@ public class AnalyticsResponse {
     private Long currentMonthEarnings;
     private Long previousMonthEarnings;
 
-    public AnalyticsResponse(Long placed, Long shipped, Long delivered, Long currentMonthOrders, Long previousMonthOrders, Long currentMonthEarnings, Long previousMonthEarnings) {
-    }
 
     public Long getPlaced() {
         return placed;

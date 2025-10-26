@@ -41,12 +41,12 @@ export class ViewProductDetailComponent {
   }
 
   addToWishlist(){
-    const wishlistDto = {
+    const wishListDto = {
       productId : this.productId,
       userId: UserStorageService.getUserId()
     }
 
-    this.customerService.addProductToWishlist(wishlistDto).subscribe(res =>{
+    this.customerService.addProductToWishlist(wishListDto).subscribe(res =>{
       if(res.id != null){
         this.snackBar.open('Product added to wishlist successfully!', 'Close', {
           duration: 5000
