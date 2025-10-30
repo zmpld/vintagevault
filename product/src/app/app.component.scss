@@ -1,15 +1,43 @@
 .navbar {
     display: flex;
     align-items: center;
-    padding: 0 16px;
-    background-color: #442D1C;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #33261c 0%, #442D1C 100%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    position: relative;
+    
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, 
+            transparent 0%, 
+            rgba(255, 255, 255, 0.1) 50%, 
+            transparent 100%);
+    }
 }
 
 .navbar-brand {
-    font-size: 20px;
-    font-weight: 600;
-    margin-right: 16px;
-    padding-left: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    margin-right: 24px;
+    margin-left: 5px;
+    padding-left: 0;
+    background: linear-gradient(135deg, #E8D1A7 0%, #9c8761 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.2);
+    }
 }
 
 .spacer {
@@ -17,15 +45,65 @@
 }
 
 button {
-    color: white;
-    text-transform: uppercase;
-    margin-left: 8px;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: none;
+    margin-left: 4px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #84592B 0%, #743014 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 10px;
+        z-index: -1;
+    }
+    
+    &:hover {
+        color: #E8D1A7;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(63, 36, 18, 0.3);
+        
+        &::before {
+            opacity: 1;
+        }
+    }
+    
+    &:active {
+        transform: translateY(0);
+    }
 }
 
 button.active {
-    font-weight: 600;
+    color: #E8D1A7;
+    // font-weight: 600;
+    background: linear-gradient(135deg, #84592B 0%, #743014 100%);
+    box-shadow: 0 4px 12px rgba(59, 46, 25, 0.4);
+    
+    &::before {
+        opacity: 1;
+    }
+    
+    &:hover {
+        color: #E8D1A7;
+        box-shadow: 0 6px 20px rgba(53, 37, 17, 0.5);
+        transform: translateY(-1px);
+    }
 }
 
 .custom-toolbar {
-    background-color: #ff0000;
+    background: linear-gradient(135deg, #84592B 0%, #743014 100%);
+    box-shadow: 0 4px 16px rgba(95, 74, 46, 0.3);
 }

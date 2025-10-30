@@ -11,6 +11,11 @@
                 <mat-icon class="heart-icon" (click)="addToWishlist()"
                     style="cursor: pointer; margin-top: 50px;">favorite_border</mat-icon>
             </p>
+            <div class="actions">
+                <button mat-raised-button class="update-button" (click)="addToCart(product.id)">
+                    Add to cart
+                </button>
+            </div>
         </div>
     </div>
 

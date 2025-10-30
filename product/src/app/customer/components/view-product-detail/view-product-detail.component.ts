@@ -58,4 +58,12 @@ export class ViewProductDetailComponent {
       }
     })
   }
+
+  addToCart(id: any) {
+      this.customerService.addToCart(id).subscribe({
+        next: (res) => this.snackBar.open(res.message || "Product added to cart successfully", "Close", { duration: 5000 }),
+        error: (err) => this.snackBar.open("Failed, this product is already in cart", "Close", { duration: 5000 }),
+      });
+    }
+
 }

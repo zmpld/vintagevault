@@ -32,7 +32,7 @@
             Total Amount: {{ order.amount | currency:'PHP':'symbol':'1.2-2' }}
         </div>
         <div class="total-price" *ngIf="order.couponName != null">
-            Coupon Applied: {{ order.couponName }}
+            Voucher Applied: {{ order.couponName }}
         </div>
         <div>
             <button mat-raised-button class="placeorder" (click)="placeOrder()">Place Order</button>
@@ -47,7 +47,7 @@
                 <mat-error *ngIf="couponForm.get('code')?.hasError('required')">This input is required!</mat-error>
             </mat-form-field>
 
-            <button mat-raised-button class="placeorder" type="submit">Apply Coupon</button>
+            <button mat-raised-button class="placeorder" type="submit">Apply Voucher</button>
         </form>
 
     </div>

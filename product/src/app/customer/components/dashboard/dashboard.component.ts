@@ -47,33 +47,10 @@ export class DashboardComponent {
       })
     }
 
-    // addToCart(id:any){
-    //   this.customerService.addToCart(id).subscribe(res =>{
-    //     this.snackBar.open("Product added to cart successfully", "Close", { duration: 5000 })
-    //   })
-    // }
-
     addToCart(id: any) {
       this.customerService.addToCart(id).subscribe({
         next: (res) => this.snackBar.open(res.message || "Product added to cart successfully", "Close", { duration: 5000 }),
         error: (err) => this.snackBar.open("Failed, this product is already in cart", "Close", { duration: 5000 }),
       });
     }
-
-//     addToCart(id: any) {
-//   this.customerService.addToCart(id).subscribe({
-//     next: (res) => {
-//       const msg = res?.message || "Product added to cart successfully";
-//       this.snackBar.open(msg, "Close", { duration: 5000 });
-//     },
-//     error: (err) => {
-//       const msg =
-//         err?.error?.message || "Failed adding product to cart. Please try again.";
-//       console.error("Error adding to cart:", err);
-//       this.snackBar.open(msg, "Close", { duration: 5000 });
-//     },
-//   });
-// }
-
-
 }
