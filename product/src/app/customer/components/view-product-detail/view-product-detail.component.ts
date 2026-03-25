@@ -40,23 +40,35 @@ export class ViewProductDetailComponent {
   })
   }
 
-  addToWishlist(){
+  // addToWishlist(){
+  //   const wishListDto = {
+  //     productId : this.productId,
+  //     userId: UserStorageService.getUserId()
+  //   }
+
+  //   this.customerService.addProductToWishlist(wishListDto).subscribe(res =>{
+  //     if(res.id != null){
+  //       this.snackBar.open('Product added to wishlist successfully!', 'Close', {
+  //         duration: 5000
+  //       });
+  //     }else{
+  //       this.snackBar.open("Already in wishlist!", 'ERROR', {
+  //         duration: 5000
+  //       });
+  //     }
+  //   })
+  // }
+
+    addToWishlist(){
     const wishListDto = {
       productId : this.productId,
       userId: UserStorageService.getUserId()
     }
 
-    this.customerService.addProductToWishlist(wishListDto).subscribe(res =>{
-      if(res.id != null){
-        this.snackBar.open('Product added to wishlist successfully!', 'Close', {
-          duration: 5000
-        });
-      }else{
-        this.snackBar.open("Already in wishlist!", 'ERROR', {
-          duration: 5000
-        });
-      }
-    })
+    this.customerService.addProductToWishlist(wishListDto).subscribe({
+       next: (res) => this.snackBar.open(res.message || 'Product added to wishlist successfully!', 'Close', { duration: 5000 }),
+       error: (err) =>  this.snackBar.open("Already in wishlist!", 'ERROR', { duration: 5000 }),
+    });
   }
 
   addToCart(id: any) {
