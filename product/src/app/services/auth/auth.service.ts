@@ -24,8 +24,9 @@ export class AuthService {
 
     return this.http.post(BASIC_URL + 'authenticate', body, { headers, observe: 'response' }).pipe(
       map((res) =>{
-        const authHeader = res.headers.get('authorization');
-        const token = authHeader ? authHeader.substring(7) : null;
+        const authHeader = res.headers.get('Authorization');
+        const token = authHeader ? authHeader.replace('Bearer ', '') : null;
+        // const token = authHeader ? authHeader.substring(7) : null;
         // const token = res.headers.get('authorization').substring(7);
         const user = res.body;
         if(token && user){
