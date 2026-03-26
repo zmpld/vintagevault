@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 import { UserStorageService } from '../storage/user-storage.service';
 
 // const BASIC_URL = "http://localhost:8080/";
-const BASIC_URL = "https://vintagevault-jaqz.onrender.com";
+const BASIC_URL = "https://vintagevault-jaqz.onrender.com/";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,9 @@ export class AuthService {
 
     return this.http.post(BASIC_URL + 'authenticate', body, { headers, observe: 'response' }).pipe(
       map((res) =>{
-        const token = res.headers.get('authorization').substring(7);
+        const authHeader = res.headers.get('authorization');
+        const token = authHeader ? authHeader.substring(7) : null;
+        // const token = res.headers.get('authorization').substring(7);
         const user = res.body;
         if(token && user){
           this.userStorageService.saveToken(token);

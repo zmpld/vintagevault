@@ -39,33 +39,72 @@ public class AuthController {
 
     public final AuthService authService;
 
+//    @PostMapping("/authenticate")
+//    public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest,
+//                                          HttpServletResponse response) throws IOException, JSONException {
+//
+//        try {
+//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+//                    authenticationRequest.getPassword()));
+//        } catch (BadCredentialsException e){
+//            throw new BadCredentialsException("Incorrect username or password.");
+//        }
+//
+//        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+//        Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
+//        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
+//
+//        if(optionalUser.isPresent()){
+//            response.getWriter().write(new JSONObject()
+//                    .put("userId", optionalUser.get().getId())
+//                    .put("role", optionalUser.get().getRole())
+//                    .toString()
+//            );
+//
+//            response.addHeader("Access-Control-Expose-Headers", "Authorization");
+//            response.addHeader("Access-Control-Allow-Headers", "Authorization, X-PINGOTHER, Origin, " +
+//                    "X-Request-With, Content-Type, Accept, X-Custom-Header");
+//            response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
+//        }
+//    }
+
     @PostMapping("/authenticate")
-    public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest,
-                                          HttpServletResponse response) throws IOException, JSONException {
+    public ResponseEntity<?> createAuthenticationToken(
+            @RequestBody AuthenticationRequest authenticationRequest) throws JSONException {
 
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
-                    authenticationRequest.getPassword()));
-        } catch (BadCredentialsException e){
-            throw new BadCredentialsException("Incorrect username or password.");
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            authenticationRequest.getUsername(),
+                            authenticationRequest.getPassword()
+                    )
+            );
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body("Incorrect username or password");
         }
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
+        final UserDetails userDetails =
+                userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+
+        Optional<User> optionalUser =
+                userRepository.findFirstByEmail(userDetails.getUsername());
+
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
 
-        if(optionalUser.isPresent()){
-            response.getWriter().write(new JSONObject()
-                    .put("userId", optionalUser.get().getId())
-                    .put("role", optionalUser.get().getRole())
-                    .toString()
-            );
-
-            response.addHeader("Access-Control-Expose-Headers", "Authorization");
-            response.addHeader("Access-Control-Allow-Headers", "Authorization, X-PINGOTHER, Origin, " +
-                    "X-Request-With, Content-Type, Accept, X-Custom-Header");
-            response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
+
+        User user = optionalUser.get();
+
+        JSONObject responseBody = new JSONObject();
+        responseBody.put("userId", user.getId());
+        responseBody.put("role", user.getRole());
+
+        return ResponseEntity.ok()
+                .header(HEADER_STRING, TOKEN_PREFIX + jwt)
+                .body(responseBody.toString());
     }
 
     @PostMapping("/sign-up")
