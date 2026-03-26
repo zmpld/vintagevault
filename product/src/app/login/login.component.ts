@@ -46,6 +46,7 @@ export class LoginComponent {
         }
       },
       (error) =>{
+        console.error(error);
         this.snackBar.open('Bad Credentials', 'ERROR', { duration: 5000 });
       }
     )
